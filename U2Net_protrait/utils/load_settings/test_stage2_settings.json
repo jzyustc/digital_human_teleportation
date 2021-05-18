@@ -1,0 +1,16 @@
+{
+  "project_name": "U2Net",
+  "model_name": "u2net",
+  "model_path": "results_stage2/U2Net_L1_e2h/",
+  "pth_name": "u2net_l1_e2h.pth",
+  "dataset_path": "./data_examples/paixin_comp_mod/",
+  "batch_size": 1,
+  "image_num": 3500,
+  "background_num": 10000,
+  "unknown_loss_weight": 3,
+  "dataloader": {
+    "load_once": false,
+    "num_worker": 0,
+    "pin_memory": true
+  }
+}

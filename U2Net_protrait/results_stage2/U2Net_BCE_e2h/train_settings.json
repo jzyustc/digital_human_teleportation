@@ -1,0 +1,19 @@
+{
+  "project_name": "mixed_U2Net",
+  "model_name": "u2net",
+  "model_path": "results_stage1/U2Net/",
+  "model_num": 60,
+  "dataset_path": "../datasets/paixin_comp_mod/",
+  "batch_size": 8,
+  "epoch_num": 1000,
+  "image_num": 3500,
+  "background_num": 10000,
+  "easy_background_num": 200,
+  "unknown_loss_weight": 3,
+  "update_ratio_epoch": 50,
+  "dataloader": {
+    "load_once": true,
+    "num_worker": 1,
+    "pin_memory": true
+  }
+}
