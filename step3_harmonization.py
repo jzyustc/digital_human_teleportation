@@ -17,12 +17,18 @@ def step3_harmonization(output_name, human_height, image_height, center_pos, z, 
 	ratio = human_height / image_height
 
 	# position of the fg
-	harmonization(cv2.imread(os.path.join(results_path, fg_name)), cv2.imread(os.path.join(results_path, bg_name)),
-				  cv2.imread(os.path.join(results_path, mask_name)), os.path.join(results_path, output_name),
-				  center_pos=center_pos, fg_ratio=ratio, depth=np.load(os.path.join(results_path, depth_name)), z=z,
-				  f=f, model_type=model_type, checkpoint=checkpoint)
+	output_path = os.path.join(results_path, output_name)
+	output = harmonization(cv2.imread(os.path.join(results_path, fg_name)),
+						   cv2.imread(os.path.join(results_path, bg_name)),
+						   cv2.imread(os.path.join(results_path, mask_name)), output_path,
+						   center_pos=center_pos, fg_ratio=ratio, depth=np.load(os.path.join(results_path, depth_name)),
+						   z=z, f=f, model_type=model_type, checkpoint=checkpoint)
+
+	cv2.imwrite(output_path, output)
 
 	print("Harmonization : saved : ", output_name)
+
+	return output
 
 
 if __name__ == "__main__":
@@ -39,4 +45,4 @@ if __name__ == "__main__":
 	z = -6  # change it
 	f = -1  # change it
 
-	step3_harmonization(output_name, human_height, image_height, center_pos, z, f=f, results_path=results_path)
+	output = step3_harmonization(output_name, human_height, image_height, center_pos, z, f=f, results_path=results_path)

@@ -63,7 +63,9 @@ def harmonization(fg, bg, mask, output_path, center_pos, fg_ratio, depth, z, f=-
 
 	# ------- 1. load model --------
 
-	device = torch.device(f'cuda:{args.gpu}')
+	use_gpu = False  # torch.cuda.is_available()
+	device = torch.device(f'cuda:{args.gpu}') if use_gpu else torch.device("cpu")
+
 	checkpoint_path = find_checkpoint(cfg.MODELS_PATH, args.checkpoint)
 	net = load_model(args.model_type, checkpoint_path, verbose=True)
 	predictor = Predictor(net, device)
@@ -78,7 +80,7 @@ def harmonization(fg, bg, mask, output_path, center_pos, fg_ratio, depth, z, f=-
 	output = harmonization_by_params(predictor, fg.copy(), bg.copy(), mask.copy(), output_path, center_pos, fg_ratio,
 									 depth, z, f=f)
 
-	cv2.imwrite(output_path, output)
+	return output
 
 
 def harmonization_by_params(predictor, fg, bg, mask, output_path, center_pos, fg_ratio, depth, z, f=-1):

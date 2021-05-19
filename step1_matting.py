@@ -14,17 +14,20 @@ STEP 1 : Matting from a rgb image
 '''
 
 
-def step1_matting(fg_image_name, ckpt_path="MODNet/results/models/modnet_photographic_portrait_matting.ckpt",
+def step1_matting(fg_image, ckpt_path="MODNet/results/models/modnet_photographic_portrait_matting.ckpt",
 				  ref_size=512, fg_name="fg.png", mask_name="mask.png", results_path="results/"):
 	# ------- 0. get settings --------
 
-	print('STEP 1')
-	print('Matting : ', fg_image_name)
+	print('STEP 1 : Matting')
 	# ------- 1. load model --------
 
+	use_gpu = torch.cuda.is_available()
+	device = torch.device("cuda") if use_gpu else torch.device("cpu")
+
 	# load models
-	modnet = MODNet(backbone_pretrained=False)
-	modnet = nn.DataParallel(modnet).cuda()
+	modnet = MODNet(backbone_pretrained=False).to(device)
+	if use_gpu:
+		modnet = nn.DataParallel(modnet)
 	modnet.load_state_dict(torch.load(ckpt_path))
 	modnet.eval()
 
@@ -39,7 +42,7 @@ def step1_matting(fg_image_name, ckpt_path="MODNet/results/models/modnet_photogr
 	)
 
 	# load image
-	im = np.asarray(Image.open(os.path.join(results_path, fg_image_name)))
+	im = np.asarray(fg_image)
 
 	# reformat to rgb-channels
 	if len(im.shape) == 2:
@@ -74,7 +77,7 @@ def step1_matting(fg_image_name, ckpt_path="MODNet/results/models/modnet_photogr
 	im = nn.Upsample(size=(im_rh, im_rw), mode='area')(im)
 
 	# inference
-	_, _, mask = modnet(im.cuda(), True)
+	_, _, mask = modnet(im.to(device), True)
 
 	# ------- 3. output --------
 
@@ -102,4 +105,7 @@ if __name__ == "__main__":
 	# define hyper-parameters
 	ref_size = 512  # change it
 
-	step1_matting(fg_image_name, ckpt_path, ref_size=ref_size, results_path=results_path)
+	# image
+	fg_image = Image.open(os.path.join(results_path, fg_image_name))
+
+	step1_matting(fg_image, ckpt_path=ckpt_path, ref_size=ref_size, results_path=results_path)
