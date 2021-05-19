@@ -21,13 +21,13 @@ def step1_matting(fg_image, ckpt_path="MODNet/results/models/modnet_photographic
 	print('STEP 1 : Matting')
 	# ------- 1. load model --------
 
-	use_gpu = torch.cuda.is_available()
+	use_gpu = False
 	device = torch.device("cuda") if use_gpu else torch.device("cpu")
 
 	# load models
 	modnet = MODNet(backbone_pretrained=False).to(device)
+	modnet = nn.DataParallel(modnet)
 	if use_gpu:
-		modnet = nn.DataParallel(modnet)
 		modnet.load_state_dict(torch.load(ckpt_path))
 	else:
 		modnet.load_state_dict(torch.load(ckpt_path, map_location=torch.device('cpu')))
