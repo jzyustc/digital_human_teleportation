@@ -65,7 +65,7 @@ def harmonization(fg, bg, mask, output_path, center_pos, fg_ratio, depth, z, f=-
 
 	# ------- 1. load model --------
 
-	use_gpu = False  # torch.cuda.is_available()
+	use_gpu = torch.cuda.is_available()
 	device = torch.device(f'cuda:{args.gpu}') if use_gpu else torch.device("cpu")
 
 	checkpoint_path = find_checkpoint(cfg.MODELS_PATH, args.checkpoint)

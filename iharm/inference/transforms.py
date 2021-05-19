@@ -63,15 +63,17 @@ class PadToDivisor(EvalTransform):
 class NormalizeTensor(EvalTransform):
     def __init__(self, mean, std, device):
         super().__init__()
-        self.mean = torch.as_tensor(mean).reshape(1, 3, 1, 1).to(device)
-        self.std = torch.as_tensor(std).reshape(1, 3, 1, 1).to(device)
+        self.mean = torch.as_tensor(mean).reshape(1, 3, 1, 1)
+        self.mean.to(device)
+        self.std = torch.as_tensor(std).reshape(1, 3, 1, 1)
+        self.std.to(device)
 
     def transform(self, image, mask):
-        image.sub_(self.mean).div_(self.std)
+        image.sub_(self.mean.to(image.device)).div_(self.std.to(image.device))
         return image, mask
 
     def inv_transform(self, image):
-        image.mul_(self.std).add_(self.mean)
+        image.mul_(self.std.to(image.device)).add_(self.mean.to(image.device))
         return image
 
 

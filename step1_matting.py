@@ -21,7 +21,7 @@ def step1_matting(fg_image, ckpt_path="MODNet/results/models/modnet_photographic
 	print('STEP 1 : Matting')
 	# ------- 1. load model --------
 
-	use_gpu = False
+	use_gpu = torch.cuda.is_available()
 	device = torch.device("cuda") if use_gpu else torch.device("cpu")
 
 	# load models
