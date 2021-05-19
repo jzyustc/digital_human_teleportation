@@ -28,7 +28,9 @@ def step1_matting(fg_image, ckpt_path="MODNet/results/models/modnet_photographic
 	modnet = MODNet(backbone_pretrained=False).to(device)
 	if use_gpu:
 		modnet = nn.DataParallel(modnet)
-	modnet.load_state_dict(torch.load(ckpt_path))
+		modnet.load_state_dict(torch.load(ckpt_path))
+	else:
+		modnet.load_state_dict(torch.load(ckpt_path, map_location=torch.device('cpu')))
 	modnet.eval()
 
 	# ------- 2. applying process --------
