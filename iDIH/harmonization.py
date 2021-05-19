@@ -44,8 +44,10 @@ def parse_args():
 		'--results-path', type=str, default='',
 		help='The path to the harmonized images. Default path: cfg.EXPS_PATH/predictions.'
 	)
-
-	args = parser.parse_args()
+	try:
+		args = parser.parse_args()
+	except:  # Jupyter
+		args = parser.parse_known_args()[0]
 	cfg = load_config_file(args.config_path, return_edict=True)
 	cfg.EXPS_PATH = Path(cfg.EXPS_PATH)
 	cfg.RESULTS_PATH = Path(args.results_path) if len(args.results_path) else cfg.EXPS_PATH / 'predictions'

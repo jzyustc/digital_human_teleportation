@@ -1,5 +1,6 @@
 ### Mine
 results/
+!results/human.jpg
 *.pth
 *.ckpt
 
