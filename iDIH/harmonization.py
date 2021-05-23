@@ -164,4 +164,14 @@ def harmonization_by_params(predictor, fg, bg, mask, output_path, center_pos, fg
 	output = (bg[:, :, :] * 255).astype(np.uint8)
 	output[t:b, l:r] = cv2.resize(pred, fg_shape, cv2.INTER_LINEAR)
 
+	'''
+  '''
+	# bo harmonization
+	import os
+	output_no = (bg[:, :, :] * 255).astype(np.uint8)
+	output_no[t:b, l:r] = cv2.resize(image_composited, fg_shape, cv2.INTER_LINEAR)
+	cv2.imwrite(os.path.join(output_path.split("/")[0], "step3_inter_no_harmonization.png"), output_no)
+	print("Render : not harmonization saved : ",
+		  os.path.join(output_path.split("/")[0], "step3_inter_no_harmonization.png"))
+
 	return output

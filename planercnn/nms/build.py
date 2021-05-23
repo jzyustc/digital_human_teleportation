@@ -3,21 +3,21 @@ import torch
 from torch.utils.ffi import create_extension
 
 
-sources = ['models/nms.c']
-headers = ['models/nms.h']
+sources = ['src/nms.c']
+headers = ['src/nms.h']
 defines = []
 with_cuda = False
 
 if torch.cuda.is_available():
     print('Including CUDA code.')
-    sources += ['models/nms_cuda.c']
-    headers += ['models/nms_cuda.h']
+    sources += ['src/nms_cuda.c']
+    headers += ['src/nms_cuda.h']
     defines += [('WITH_CUDA', None)]
     with_cuda = True
 
 this_file = os.path.dirname(os.path.realpath(__file__))
 print(this_file)
-extra_objects = ['models/cuda/nms_kernel.cu.o']
+extra_objects = ['src/cuda/nms_kernel.cu.o']
 extra_objects = [os.path.join(this_file, fname) for fname in extra_objects]
 
 ffi = create_extension(

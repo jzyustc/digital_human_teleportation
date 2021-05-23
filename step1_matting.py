@@ -95,6 +95,17 @@ def step1_matting(fg_image, ckpt_path="MODNet/results/models/modnet_photographic
 	Image.fromarray((foreground * 255).astype(np.uint8)).save(os.path.join(results_path, fg_name))
 	print("Matting : foreground saved : ", os.path.join(results_path, fg_name))
 
+	'''
+	# save the masked image
+	Image.fromarray(((im * mask[:, :, np.newaxis] + 0.5 * (1 - mask[:, :, np.newaxis])) * 255).astype(np.uint8)).save(
+		os.path.join(results_path, "step1_inter_im_mask.png"))
+	print("Matting : image * mask : ", os.path.join(results_path, "step1_inter_im_mask.png"))
+
+	# save the masked foreground
+	Image.fromarray(((foreground * mask[:, :, np.newaxis] + 0.5 * (1 - mask[:, :, np.newaxis])) * 255
+					 ).astype(np.uint8)).save(os.path.join(results_path, "step1_inter_fg_mask.png"))
+	print("Matting : foreground * mask : ", os.path.join(results_path, "step1_inter_fg_mask.png"))
+	'''
 
 if __name__ == "__main__":
 	# ---- settings ----

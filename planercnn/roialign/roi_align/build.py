@@ -3,18 +3,18 @@ import torch
 from torch.utils.ffi import create_extension
 
 
-sources = ['models/crop_and_resize.c']
-headers = ['models/crop_and_resize.h']
+sources = ['src/crop_and_resize.c']
+headers = ['src/crop_and_resize.h']
 defines = []
 with_cuda = False
 
 extra_objects = []
 if torch.cuda.is_available():
     print('Including CUDA code.')
-    sources += ['models/crop_and_resize_gpu.c']
-    headers += ['models/crop_and_resize_gpu.h']
+    sources += ['src/crop_and_resize_gpu.c']
+    headers += ['src/crop_and_resize_gpu.h']
     defines += [('WITH_CUDA', None)]
-    extra_objects += ['models/cuda/crop_and_resize_kernel.cu.o']
+    extra_objects += ['src/cuda/crop_and_resize_kernel.cu.o']
     with_cuda = True
 
 extra_compile_args = ['-fopenmp', '-std=c99']

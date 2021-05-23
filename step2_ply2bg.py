@@ -54,6 +54,19 @@ def step2_ply2bg(ply_sub_path, k=580, f=-1, image_range=None, method="quick", bg
 		Image.fromarray(depth_image).save(os.path.join(results_path, bg_depth_name))
 		print("Render : depthmap saved : ", os.path.join(results_path, bg_depth_name))
 
+	'''
+	Image.fromarray((render.mask * 255).astype(np.uint8)).save(os.path.join(results_path, "step2_inter_mask.png"))
+	print("Render : mask saved : ", os.path.join(results_path, "step2_inter_mask.png"))
+
+	Image.fromarray(render.image).save(os.path.join(results_path, "step2_inter_no_inpainting.png"))
+	print("Render : not inpainting saved : ", os.path.join(results_path, "step2_inter_no_inpainting.png"))
+
+	depth_max, depth_min = render.depth.max(), render.depth.min()
+	depth_image = ((render.depth - depth_min) / (depth_max - depth_min) * 255).astype(np.uint8)
+	Image.fromarray(depth_image).save(os.path.join(results_path, "step2_inter_no_depth.png"))
+	print("Render : no inpainting depth saved : ", os.path.join(results_path, "step2_inter_no_depth.png"))
+	'''
+
 
 if __name__ == "__main__":
 	# ---- settings ----
