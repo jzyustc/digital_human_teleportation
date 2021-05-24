@@ -1,6 +1,6 @@
 import os
-from planercnn.utils.render import *
-from planercnn.utils.inpainting import *
+from planercnn.utils_3d.render import *
+from planercnn.utils_3d.inpainting import *
 
 '''
 STEP 2 : render the 3d model to a single rgb background
@@ -55,6 +55,7 @@ def step2_ply2bg(ply_sub_path, k=580, f=-1, image_range=None, method="quick", bg
 		print("Render : depthmap saved : ", os.path.join(results_path, bg_depth_name))
 
 	'''
+	'''
 	Image.fromarray((render.mask * 255).astype(np.uint8)).save(os.path.join(results_path, "step2_inter_mask.png"))
 	print("Render : mask saved : ", os.path.join(results_path, "step2_inter_mask.png"))
 
@@ -65,7 +66,6 @@ def step2_ply2bg(ply_sub_path, k=580, f=-1, image_range=None, method="quick", bg
 	depth_image = ((render.depth - depth_min) / (depth_max - depth_min) * 255).astype(np.uint8)
 	Image.fromarray(depth_image).save(os.path.join(results_path, "step2_inter_no_depth.png"))
 	print("Render : no inpainting depth saved : ", os.path.join(results_path, "step2_inter_no_depth.png"))
-	'''
 
 
 if __name__ == "__main__":
@@ -79,6 +79,6 @@ if __name__ == "__main__":
 	k = 580  # change it
 	f = -1  # change it
 	image_range = [[-240, 240], [-320, 320]]  # change it
-	method = "quick"  # change it
+	method = "face"  # change it
 
 	step2_ply2bg(ply_sub_path, k=k, f=f, image_range=image_range, method=method, results_path=results_path)
