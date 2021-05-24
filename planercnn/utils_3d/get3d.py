@@ -182,6 +182,9 @@ def create_output(image, XYZ, filename):
 	XYZ[:, 1] = XYZ[:, 2]
 	XYZ[:, 2] = Z
 	image = np.insert(image.reshape(-1, 3), 3, values=255, axis=1)
+	B = image[:, 0].copy()
+	image[:, 0] = image[:, 2]
+	image[:, 2] = B
 	vertices = np.hstack([XYZ.reshape(-1, 3), image])
 	np.savetxt(filename, vertices, fmt='%f %f %f %d %d %d %d')
 	ply_header = '''ply
