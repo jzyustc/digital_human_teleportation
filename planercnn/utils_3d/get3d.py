@@ -190,9 +190,9 @@ element vertex %(vert_num)d
 property float x
 property float y
 property float z
-property uchar blue
-property uchar green
 property uchar red
+property uchar green
+property uchar blue
 property uchar alpha
 end_header
 '''
