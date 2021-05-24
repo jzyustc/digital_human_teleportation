@@ -1,5 +1,5 @@
-from utils.render import *
-from utils.inpainting import *
+from utils_3d.render import *
+from utils_3d.inpainting import *
 
 if __name__ == "__main__":
 

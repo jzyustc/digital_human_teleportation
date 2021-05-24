@@ -1,4 +1,4 @@
-from utils.get3d import *
+from utils_3d.get3d import *
 
 
 def get3d(args):
