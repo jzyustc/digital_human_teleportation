@@ -178,7 +178,9 @@ def evaluate(options):
 # Function to create point cloud file
 def create_output(image, XYZ, filename):
 	XYZ = XYZ.reshape((-1, 3))
-	XYZ[:, 1] = -XYZ[:, 1]
+	Z = -XYZ[:, 1].copy()
+	XYZ[:, 1] = XYZ[:, 2]
+	XYZ[:, 2] = Z
 	image = np.insert(image.reshape(-1, 3), 3, values=255, axis=1)
 	vertices = np.hstack([XYZ.reshape(-1, 3), image])
 	np.savetxt(filename, vertices, fmt='%f %f %f %d %d %d %d')
@@ -186,8 +188,8 @@ def create_output(image, XYZ, filename):
 format ascii 1.0
 element vertex %(vert_num)d
 property float x
-property float z
 property float y
+property float z
 property uchar blue
 property uchar green
 property uchar red

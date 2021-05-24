@@ -1,4 +1,7 @@
 import os
+
+import cv2
+
 from planercnn.utils_3d.render import *
 from planercnn.utils_3d.inpainting import *
 
@@ -73,7 +76,7 @@ if __name__ == "__main__":
 
 	# define path
 	results_path = "results/"  # change it
-	ply_sub_path = "3d_models/bg_after.ply"  # change it
+	ply_sub_path = "3d_models/bg_tsg.ply"  # change it
 
 	# define params
 	k = 580  # change it
