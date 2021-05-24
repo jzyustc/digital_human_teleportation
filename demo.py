@@ -10,8 +10,8 @@ from pymatting import *
 import streamlit as st
 
 from MODNet.models.models.modnet import MODNet
-from planercnn.utils.render import *
-from planercnn.utils.inpainting import *
+from planercnn.utils_3d.render import *
+from planercnn.utils_3d.inpainting import *
 from iharm.inference.predictor import Predictor
 from iharm.inference.utils import load_model, find_checkpoint
 from iharm.mconfigs import ALL_MCONFIGS
