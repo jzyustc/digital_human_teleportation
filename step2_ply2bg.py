@@ -79,6 +79,6 @@ if __name__ == "__main__":
 	k = 580  # change it
 	f = -1  # change it
 	image_range = [[-240, 240], [-320, 320]]  # change it
-	method = "face"  # change it
+	method = "quick"  # change it
 
 	step2_ply2bg(ply_sub_path, k=k, f=f, image_range=image_range, method=method, results_path=results_path)
