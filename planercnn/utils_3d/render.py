@@ -223,9 +223,6 @@ class Render:
 			   (self.point_list[:, 1] / self.point_list[:, 2] * self.k * self.f - self.image_range[1][0]). \
 				   round().astype(np.int)
 
-		print(U)
-		print(V)
-		print(self.point_list)
 		# remain those in the camera range
 		in_range = (U >= 0) & (U < self.h) & (V >= 0) & (V < self.w)
 		U, V, self.point_list = U[in_range], V[in_range], self.point_list[in_range]
