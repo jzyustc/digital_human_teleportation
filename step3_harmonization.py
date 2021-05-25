@@ -39,10 +39,10 @@ if __name__ == "__main__":
 	output_name = "output.png"  # change it
 
 	# define params
-	human_height = 1.0  # change it
-	image_height = 0.3  # change it
-	center_pos = (-80, -80)  # change it
-	z = -4  # change it
+	human_height = 1  # change it
+	image_height = 1.4  # change it
+	center_pos = (-70, 90)  # change it
+	z = -1.8  # change it
 	f = -1  # change it
 
 	output = step3_harmonization(output_name, human_height, image_height, center_pos, z, f=f, results_path=results_path)

@@ -295,15 +295,15 @@ image_range_w_max = st.sidebar.text_input("output w max", value='360')
 image_range = [[int(image_range_h_min), int(image_range_h_max)], [int(image_range_w_min), int(image_range_w_max)]]
 
 human_height = st.sidebar.slider('human height (m)', min_value=0., max_value=2., value=1., step=0.01)
-image_height = st.sidebar.slider('image height (m)', min_value=0., max_value=5., value=0.3, step=0.01)
+image_height = st.sidebar.slider('image height (m)', min_value=0., max_value=3., value=1.4, step=0.01)
 
-center_pos_x = st.sidebar.slider('human pos x', min_value=image_range[0][0], max_value=image_range[0][1], value=160,
+center_pos_x = st.sidebar.slider('human pos x', min_value=image_range[0][0], max_value=image_range[0][1], value=-70,
 								 step=1)
-center_pos_y = st.sidebar.slider('human pos y', min_value=image_range[1][0], max_value=image_range[1][1], value=0,
+center_pos_y = st.sidebar.slider('human pos y', min_value=image_range[1][0], max_value=image_range[1][1], value=90,
 								 step=1)
 center_pos = (center_pos_x, center_pos_y)  # position of the human (pixels)
 
-z = st.sidebar.slider('z : depth of the human (m)', min_value=-20., max_value=-1., value=-6., step=0.1)
+z = st.sidebar.slider('z : depth of the human (m)', min_value=-5., max_value=-1., value=-1.8, step=0.01)
 
 # global
 results_path = "results/"
@@ -318,18 +318,22 @@ render.k = k
 fg_image = st.file_uploader("Upload an image", type="jpg")
 
 # run
-if fg_image is not None:
+if fg_image is None:
+	default_human = os.path.join(results_path, "trump.jpg")
 	fg_image = Image.open(fg_image)
-	fg_size = fg_image.size
-	st.image(fg_image, caption='Input image.', use_column_width=True)
+else:
+	fg_image = Image.open(fg_image)
 
-	mask, fg = step1_func(fg_image, modnet)
-	bg, depth, bg_depth = step2_func(render)
+fg_size = fg_image.size
+st.image(fg_image, caption='Input image.', use_column_width=True)
 
-	st.image(bg, caption='Background', use_column_width=True)
+mask, fg = step1_func(fg_image, modnet)
+bg, depth, bg_depth = step2_func(render)
 
-	output = step3_func(idih, fg, bg, mask, human_height, image_height, center_pos, z)
-	if output is not None:
-		st.image(output, caption='Output', use_column_width=True)
-	else:
-		st.write("Illegal params")
+st.image(bg, caption='Background', use_column_width=True)
+
+output = step3_func(idih, fg, bg, mask, human_height, image_height, center_pos, z)
+if output is not None:
+	st.image(output, caption='Output', use_column_width=True)
+else:
+	st.write("Illegal params. Try to make the human height smaller")

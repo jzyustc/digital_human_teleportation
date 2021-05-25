@@ -112,7 +112,7 @@ if __name__ == "__main__":
 
 	# define path
 	results_path = "results/"  # change it
-	fg_image_name = "human.jpg"  # change it
+	fg_image_name = "trump.jpg"  # change it
 	ckpt_path = "MODNet/results/models/modnet_photographic_portrait_matting.ckpt"  # change it
 
 	# define hyper-parameters
