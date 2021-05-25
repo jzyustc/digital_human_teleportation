@@ -32,6 +32,10 @@ And the output images are like :
 
 ![output](./doc/output3.png)
 
+> More results
+
+![output](./doc/output4.png)
+
 
 
 
@@ -73,6 +77,12 @@ The folder are organized as following:
 >// main : teleportation
 >
 >teleportation.py : step 1-3 for teleportation
+> 
+>// projects in colab
+> 
+>image2ply.ipynb
+> 
+>teleportation.ipynb
 
 
 
@@ -80,7 +90,7 @@ The folder are organized as following:
 
 ### Environment
 
-**pre_bg2ply.py** is an application of PlaneRCNN, which should compile and run with pytorch 0.4.0.
+**pre_bg2ply.py** is an application of PlaneRCNN, which should compile with pytorch 0.4.0 and run with pytorch 0.4.1.
 
 **teleportation** is implemented with pytorch 1.8.1. 
 
