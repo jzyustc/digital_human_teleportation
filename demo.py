@@ -320,7 +320,7 @@ fg_image = st.file_uploader("Upload an image", type="jpg")
 # run
 if fg_image is None:
 	default_human = os.path.join(results_path, "trump.jpg")
-	fg_image = Image.open(fg_image)
+	fg_image = Image.open(default_human)
 else:
 	fg_image = Image.open(fg_image)
 
