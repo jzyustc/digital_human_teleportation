@@ -286,16 +286,13 @@ step2_func = st.cache(step2_ply2bg, allow_output_mutation=True)
 step3_func = st.cache(step3_harmonization, allow_output_mutation=True)
 
 # changeable params
-k = st.sidebar.slider('k : the size of pixels', min_value=0, max_value=1000, value=580, step=1)
 
-image_range_h_min = st.sidebar.text_input("output h min", value='-240')
-image_range_h_max = st.sidebar.text_input("output h max", value='240')
-image_range_w_min = st.sidebar.text_input("output w min", value='-360')
-image_range_w_max = st.sidebar.text_input("output w max", value='360')
-image_range = [[int(image_range_h_min), int(image_range_h_max)], [int(image_range_w_min), int(image_range_w_max)]]
+z = st.sidebar.slider('z : depth of the human (m)', min_value=-5., max_value=-1., value=-1.8, step=0.01)
 
 human_height = st.sidebar.slider('human height (m)', min_value=0., max_value=2., value=1., step=0.01)
 image_height = st.sidebar.slider('image height (m)', min_value=0., max_value=3., value=1.4, step=0.01)
+
+image_range = [[-240, 240], [-320, 320]]
 
 center_pos_x = st.sidebar.slider('human pos x', min_value=image_range[0][0], max_value=image_range[0][1], value=-70,
 								 step=1)
@@ -303,7 +300,7 @@ center_pos_y = st.sidebar.slider('human pos y', min_value=image_range[1][0], max
 								 step=1)
 center_pos = (center_pos_x, center_pos_y)  # position of the human (pixels)
 
-z = st.sidebar.slider('z : depth of the human (m)', min_value=-5., max_value=-1., value=-1.8, step=0.01)
+k = st.sidebar.slider('k : the size of pixels', min_value=0, max_value=1000, value=580, step=1)
 
 # global
 results_path = "results/"
